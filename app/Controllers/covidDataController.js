@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const fetch = require("node-fetch");
-const dataFormationService = require("../Services/dataFormationService");
+const countryDataFormationService = require("../Services/countryDataFormationService");
+const globalDataCalcService = require("../Services/globalDataCalcService");
 const cache = require("../Middlewares/memoryCache");
 
-router.get("/summary", cache(10), async (req, res) => {
+router.get("/summary", cache(600), async (req, res) => {
   const countriesCovid = await fetch("https://api.covid19api.com/summary");
   const countriesPopulation = await fetch(
     "https://restcountries.eu/rest/v2/all"
@@ -13,10 +14,20 @@ router.get("/summary", cache(10), async (req, res) => {
     const covidDataRaw = await countriesCovid.json();
     const populationRaw = await countriesPopulation.json();
 
-    const data = await dataFormationService.dataFormationService(
+    const countryData = await countryDataFormationService.countryDataFormationService(
       covidDataRaw.Countries,
       populationRaw
     );
+
+    const globalData = await globalDataCalcService.globalDataCalcService(
+      covidDataRaw.Global,
+      countryData
+    );
+
+    const data = {
+      Global: globalData,
+      Countries: countryData,
+    };
 
     res.status(200).json(data);
   } catch (error) {

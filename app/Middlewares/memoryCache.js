@@ -6,7 +6,7 @@ const cache = (duration) => {
   return (req, res, next) => {
     let key = "__express__" + req.originalUrl || req.url;
     let cacheBody = mcache.get(key);
-    console.log(mcache.size());
+
     if (cacheBody) {
       res.json(cacheBody);
       return;
@@ -16,7 +16,7 @@ const cache = (duration) => {
         mcache.put(key, body, duration * 1000);
         res.sendResponse(body);
       };
-      console.log(mcache.size());
+
       next();
     }
   };

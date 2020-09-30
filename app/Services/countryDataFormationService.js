@@ -2,7 +2,7 @@
 
 //puts the population data as a property to each country and returns an array of objects
 
-async function dataFormationService(cases, population) {
+async function countryDataFormationService(cases, population) {
   try {
     let casesWOPopulation = transformDataByCountryCode(cases);
 
@@ -45,5 +45,5 @@ const transformDataByCountryCode = (cases) => {
 };
 
 module.exports = {
-  dataFormationService: dataFormationService,
+  countryDataFormationService: countryDataFormationService,
 };
