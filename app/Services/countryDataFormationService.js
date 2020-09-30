@@ -12,6 +12,7 @@ async function countryDataFormationService(cases, population) {
       if (casesWOPopulation.hasOwnProperty(element.alpha2Code)) {
         let country = casesWOPopulation[element.alpha2Code];
         country.Population = element.population;
+        calculateSeverityByPopulation(country);
         casesWithPopulation.push(country);
       }
     });
@@ -42,6 +43,20 @@ const transformDataByCountryCode = (cases) => {
   });
 
   return casesByCountryCode;
+};
+
+const calculateSeverityByPopulation = (country) => {
+  const activeCases = country.TotalConfirmed - country.TotalRecovered;
+
+  const ratio = activeCases / country.Population;
+
+  if (ratio < 0.0001) {
+    country.Severity = "Low";
+  } else if (0.01 > ratio >= 0.0001) {
+    country.Severity = "Medium";
+  } else {
+    country.Severity = "High";
+  }
 };
 
 module.exports = {
