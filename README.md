@@ -2,6 +2,8 @@
 
 ## Calculation of severity
 
-**Low**: the number of active cases is lower than 100 per 1 milion.
-**Medium**: the number of active cases is between a 100 an 999 per 1 million.
-**High**: the number of active cases is higher than 999 per 1 million.
+**Low**: the number of active cases is lower than 10 per 10 0000.
+
+**Medium**: the number of active cases is between a 10 an 100 per 10 000.
+
+**High**: the number of active cases is higher than 100 per 10 000.

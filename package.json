@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --no-cache ./*",
     "start": "nodemon server.js"
   },
   "repository": {
@@ -27,6 +27,13 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "jest": "^26.1.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.10.4",
+    "@babel/node": "^7.8.7",
+    "@types/jest": "^25.2.1",
+    "babel-jest": "^26.1.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4"
   }
 }
