@@ -7,11 +7,14 @@ const LEDCalcService = require("../Services/LEDCalcService");
 const cache = require("../Middlewares/memoryCache");
 
 router.get("/summary", cache(600), async (req, res) => {
-  const countriesCovid = await fetch("https://api.covid19api.com/summary");
-  const countriesPopulation = await fetch(
-      "https://restcountries.eu/rest/v2/all"
-  );
+
+  //handle cases what happens if the api is down
   try {
+    const countriesCovid = await fetch("https://api.covid19api.com/summary");
+    const countriesPopulation = await fetch(
+      "https://restcountries.eu/rest/v2/all"
+    );
+
     const covidDataRaw = await countriesCovid.json();
     const populationRaw = await countriesPopulation.json();
 
@@ -32,7 +35,7 @@ router.get("/summary", cache(600), async (req, res) => {
 
     res.status(200).json(data);
   } catch (error) {
-    console.log(`Controller error: ${error}`);
+    console.log(`Controller error: ${error.message}`);
     return res.status(400);
   }
 });

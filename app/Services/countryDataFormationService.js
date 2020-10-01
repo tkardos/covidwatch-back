@@ -4,8 +4,7 @@
 
 async function countryDataFormationService(cases, population) {
   try {
-    let casesWOPopulation = transformDataByCountryCode(cases);
-
+    const casesWOPopulation = transformDataByCountryCode(cases);
     let casesWithPopulation = [];
 
     population.forEach((element) => {
@@ -19,7 +18,7 @@ async function countryDataFormationService(cases, population) {
 
     return casesWithPopulation;
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
   }
 }
 
@@ -29,36 +28,59 @@ const transformDataByCountryCode = (cases) => {
   let casesByCountryCode = {};
 
   cases.forEach((country) => {
-    casesByCountryCode[country.CountryCode] = {
-      CountryCode: country.CountryCode,
-      Country: country.Country,
-      NewConfirmed: country.NewConfirmed,
-      TotalConfirmed: country.TotalConfirmed,
-      NewDeaths: country.NewDeaths,
-      TotalDeaths: country.TotalDeaths,
-      NewRecovered: country.NewRecovered,
-      TotalRecovered: country.TotalRecovered,
-      Date: country.Date,
-    };
+    if (
+      !country.hasOwnProperty("CountryCode") ||
+      !country.hasOwnProperty("Country") ||
+      !country.hasOwnProperty("NewConfirmed") ||
+      !country.hasOwnProperty("TotalConfirmed") ||
+      !country.hasOwnProperty("NewDeaths") ||
+      !country.hasOwnProperty("TotalDeaths") ||
+      !country.hasOwnProperty("TotalRecovered") ||
+      !country.hasOwnProperty("NewRecovered") ||
+      !country.hasOwnProperty("Date")
+    ) {
+      throw new Error("Field doesn't exist");
+    } else {
+      casesByCountryCode[country.CountryCode] = {
+        CountryCode: country.CountryCode,
+        Country: country.Country,
+        NewConfirmed: country.NewConfirmed,
+        TotalConfirmed: country.TotalConfirmed,
+        NewDeaths: country.NewDeaths,
+        TotalDeaths: country.TotalDeaths,
+        NewRecovered: country.NewRecovered,
+        TotalRecovered: country.TotalRecovered,
+        Date: country.Date,
+      };
+    }
   });
 
   return casesByCountryCode;
 };
-
 const calculateSeverityByPopulation = (country) => {
-  const activeCases = country.TotalConfirmed - country.TotalRecovered;
-
-  const ratio = activeCases / country.Population;
-
-  if (ratio < 0.0001) {
-    country.Severity = "Low";
-  } else if (0.01 > ratio >= 0.0001) {
-    country.Severity = "Medium";
+  if (
+    !country.hasOwnProperty("TotalConfirmed") ||
+    !country.hasOwnProperty("TotalRecovered") ||
+    !country.hasOwnProperty("Population")
+  ) {
+    throw new Error("Insufficient data provided to do calculations");
   } else {
-    country.Severity = "High";
+    const activeCases = country.TotalConfirmed - country.TotalRecovered;
+
+    const ratio = activeCases / country.Population;
+
+    if (ratio < 0.0001) {
+      country.Severity = "Low";
+    } else if (0.0001 <= ratio && ratio < 0.001) {
+      country.Severity = "Medium";
+    } else {
+      country.Severity = "High";
+    }
   }
 };
 
 module.exports = {
-  countryDataFormationService: countryDataFormationService,
+  countryDataFormationService,
+  transformDataByCountryCode,
+  calculateSeverityByPopulation,
 };

@@ -1,7 +1,7 @@
 "use strict";
 
 async function globalDataCalcService(globalData, countries) {
-  try {
+  if (countries.length > 0) {
     let globalPopulation = 0;
 
     countries.forEach((country) => {
@@ -9,11 +9,9 @@ async function globalDataCalcService(globalData, countries) {
     });
 
     globalData.Population = globalPopulation;
-
-    return globalData;
-  } catch (error) {
-    console.log(`Service error: ${error}`);
   }
+
+  return globalData;
 }
 
 module.exports = {
