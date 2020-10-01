@@ -2,7 +2,7 @@
 
 ## What is CovidWatch?
 
-CovidWatch is an app that uses externally sourced Covid19 information and calculates some country-specific data concerning the number cases. The data is sent to a client where it is represented visually on charts in an easily comprihesible way. An interesting feature of our app is that it also connected to a series of LED ligths controlled by an external program, and the data calculated by the CovidWatch app is visualized on these lights.
+CovidWatch is an app that uses externally sourced Covid19 information and calculates some country-specific data concerning the number cases. The data is sent to a client where it can be represented visually on charts in an easily comprihesible way :bar_chart:. An interesting feature of our app is that it also connected to a series of LED ligths controlled by an external program, and the data calculated by the CovidWatch app is visualized on these lights.
 
 ## The aim of CovidWatch
 
