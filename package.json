@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest --no-cache ./*",
+    "test": "jest --no-cache --collect-coverage ./*",
     "start": "nodemon server.js"
   },
   "repository": {
