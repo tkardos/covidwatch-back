@@ -9,6 +9,8 @@ node_modules
 /build
 
 # misc
+.gitignore
+.idea
 .DS_Store
 .env
 .env.local
