@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --no-cache --collect-coverage ./*",
     "start": "node server.js"
   },
   "repository": {
@@ -18,8 +18,22 @@
   },
   "homepage": "https://github.com/tkardos/covidwatch-back#readme",
   "dependencies": {
+    "axios": "^0.20.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-async-await": "^1.1.0",
+    "memory-cache": "^0.2.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "jest": "^26.1.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.10.4",
+    "@babel/node": "^7.8.7",
+    "@types/jest": "^25.2.1",
+    "babel-jest": "^26.1.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4"
   }
 }
